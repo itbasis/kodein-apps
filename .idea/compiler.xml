@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="kodein-apps-common_main" target="1.8" />
       <module name="kodein-apps-common_test" target="1.8" />
+      <module name="kodein-apps-flyway-ds-multiple_main" target="1.8" />
+      <module name="kodein-apps-flyway-ds-multiple_test" target="1.8" />
       <module name="kodein-apps-flyway_main" target="1.8" />
       <module name="kodein-apps-flyway_test" target="1.8" />
     </bytecodeTargetLevel>

@@ -5,6 +5,7 @@ apply {
 }
 
 val kotlinExVersion: String by project
+val kotlinUtilsVersion: String by project
 val commonsLang3Version: String by project
 val commonsCompressVersion: String by project
 
@@ -16,9 +17,8 @@ repositories {
 dependencies {
 	"compile"(project(":kodein-apps-common"))
 
-	"compile"(
-		group = "com.github.itbasis.kodein-ex", name = "kodein-ex-jvm", version = kotlinExVersion
-	)
+	"compile"(group = "com.github.itbasis.kodein-ex", name = "kodein-ex-jvm", version = kotlinExVersion)
+	"compile"(group = "com.github.itbasis.kotlin-utils", name = "kotlin-utils-jvm", version = kotlinUtilsVersion)
 
 
 	"compile"(group = "org.flywaydb", name = "flyway-core", version = "5.1.1")
