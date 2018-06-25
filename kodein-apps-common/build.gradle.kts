@@ -8,14 +8,7 @@ val kotlinUtilsVersion: String by project
 val kotlinExVersion: String by project
 
 dependencies {
-	"compile"(
-		group = "com.github.itbasis.kodein-ex", name = "kodein-ex-common", version = kotlinExVersion
-	)
+	"compile"("com.github.itbasis.kodein-ex:kodein-ex-common:$kotlinExVersion")
 
-	"compile"(
-		group = "com.github.itbasis.kotlin-utils",
-		name = "kotlin-utils-jvm",
-		version = kotlinUtilsVersion
-	)
-
+	"compile"("com.github.itbasis.kotlin-utils:kotlin-utils-common:$kotlinUtilsVersion")
 }
