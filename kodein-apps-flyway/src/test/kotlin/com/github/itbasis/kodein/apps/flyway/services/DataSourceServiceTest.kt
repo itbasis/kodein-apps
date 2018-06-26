@@ -11,9 +11,12 @@ import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
+import ru.itbasis.kotlin.utils.lazyProperty
 
 internal class DataSourceServiceTest {
-	private class MySqlDataSourceConfig : DataSourceConfig() {
+	private open class MySqlDataSourceConfig(prefix: String = "DB") :
+		DataSourceConfig<MysqlDataSource>(prefix = prefix) {
+
 		init {
 			val ds = MysqlDataSource()
 			ds.serverName = host
@@ -22,6 +25,10 @@ internal class DataSourceServiceTest {
 			ds.user = username
 			dataSource = ds
 		}
+	}
+
+	private class MySqlDataSourceOVerrideConfig : MySqlDataSourceConfig(prefix = "DB_T") {
+		override val port by lazyProperty { 5 }
 	}
 
 	@After
@@ -39,8 +46,8 @@ internal class DataSourceServiceTest {
 		val kodein = Kodein {
 			bind() from singleton { MySqlDataSourceConfig() }
 		}
-		val dataSourceConfig: DataSourceConfig by kodein.instance()
-		val dataSource = dataSourceConfig.dataSource as MysqlDataSource
+		val dataSourceConfig: DataSourceConfig<MysqlDataSource> by kodein.instance()
+		val dataSource = dataSourceConfig.dataSource
 		dataSource.user shouldBe "username"
 		dataSource.getUrl() shouldBe "jdbc:mysql://localhost:0/db"
 	}
@@ -53,8 +60,8 @@ internal class DataSourceServiceTest {
 			bind() from singleton { MySqlDataSourceConfig() }
 		}
 
-		val dataSourceConfig: DataSourceConfig by kodein.instance()
-		val dataSource = dataSourceConfig.dataSource as MysqlDataSource
+		val dataSourceConfig: DataSourceConfig<MysqlDataSource> by kodein.instance()
+		val dataSource = dataSourceConfig.dataSource
 		dataSource.getUrl() shouldBe "jdbc:mysql://localhost:0/db1"
 	}
 }

@@ -25,7 +25,7 @@ import java.sql.Connection
 @FixMethodOrder(JVM)
 internal class FlywayAppModuleTest {
 
-	private class MySqlDataSourceConfig : DataSourceConfig() {
+	private class MySqlDataSourceConfig : DataSourceConfig<MysqlDataSource>() {
 		init {
 			val ds = MysqlDataSource()
 			ds.serverName = host
@@ -37,7 +37,7 @@ internal class FlywayAppModuleTest {
 		}
 	}
 
-	private class MySqlFullAccessDataSourceConfig : DataSourceConfig("DB_FA") {
+	private class MySqlFullAccessDataSourceConfig : DataSourceConfig<MysqlDataSource>("DB_FA") {
 		init {
 			val ds = MysqlDataSource()
 			ds.serverName = host
@@ -49,8 +49,8 @@ internal class FlywayAppModuleTest {
 		}
 	}
 
-	private class MySqlDatabaseService(dataSourceConfig: DataSourceConfig) :
-		DatabaseService(dataSourceConfig) {
+	private class MySqlDatabaseService(dataSourceConfig: DataSourceConfig<MysqlDataSource>) :
+		DatabaseService<MysqlDataSource>(dataSourceConfig) {
 
 		lateinit var connection: Connection
 
@@ -89,7 +89,7 @@ internal class FlywayAppModuleTest {
 		System.setProperty("DB_PORT", embeddedDb.config.port.toString())
 
 		val kodein = Kodein {
-			bind<DataSourceConfig>(KODEIN_TAG_DATA_SOURCE_CONFIG) with singleton { MySqlDataSourceConfig() }
+			bind<DataSourceConfig<MysqlDataSource>>(KODEIN_TAG_DATA_SOURCE_CONFIG) with singleton { MySqlDataSourceConfig() }
 			bind<MySqlDatabaseService>() with singleton {
 				MySqlDatabaseService(
 					instance(
@@ -118,7 +118,7 @@ internal class FlywayAppModuleTest {
 		System.setProperty("DB_PORT", embeddedDb.config.port.toString())
 
 		val kodein = Kodein {
-			bind<DataSourceConfig>(KODEIN_TAG_DATA_SOURCE_CONFIG) with singleton { MySqlDataSourceConfig() }
+			bind<DataSourceConfig<MysqlDataSource>>(KODEIN_TAG_DATA_SOURCE_CONFIG) with singleton { MySqlDataSourceConfig() }
 			bind<MySqlDatabaseService>() with singleton {
 				MySqlDatabaseService(
 					instance(
@@ -151,8 +151,8 @@ internal class FlywayAppModuleTest {
 		System.setProperty("DB_PORT", embeddedDb.config.port.toString())
 
 		val kodein = Kodein {
-			bind<DataSourceConfig>(KODEIN_TAG_DATA_SOURCE_CONFIG) with singleton { MySqlFullAccessDataSourceConfig() }
-			bind<DataSourceConfig>("dsRW") with singleton { MySqlDataSourceConfig() }
+			bind<DataSourceConfig<MysqlDataSource>>(KODEIN_TAG_DATA_SOURCE_CONFIG) with singleton { MySqlFullAccessDataSourceConfig() }
+			bind<DataSourceConfig<MysqlDataSource>>("dsRW") with singleton { MySqlDataSourceConfig() }
 			bind<MySqlDatabaseService>() with singleton { MySqlDatabaseService(instance("dsRW")) }
 
 			import(flywayAppModule)
@@ -179,8 +179,8 @@ internal class FlywayAppModuleTest {
 		System.setProperty("DB_PORT", embeddedDb.config.port.toString())
 
 		val kodein = Kodein {
-			bind<DataSourceConfig>(KODEIN_TAG_DATA_SOURCE_CONFIG) with singleton { MySqlFullAccessDataSourceConfig() }
-			bind<DataSourceConfig>("dsRW") with singleton { MySqlDataSourceConfig() }
+			bind<DataSourceConfig<MysqlDataSource>>(KODEIN_TAG_DATA_SOURCE_CONFIG) with singleton { MySqlFullAccessDataSourceConfig() }
+			bind<DataSourceConfig<MysqlDataSource>>("dsRW") with singleton { MySqlDataSourceConfig() }
 			bind<MySqlDatabaseService>() with singleton { MySqlDatabaseService(instance("dsRW")) }
 
 			import(flywayAppModule)

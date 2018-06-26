@@ -4,9 +4,11 @@ import com.github.itbasis.kodein.apps.flyway.config.DataSourceConfig
 import com.github.itbasis.kodein.ex.AbstractService
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.internal.configuration.ConfigUtils
+import javax.sql.DataSource
 
 @Suppress("MemberVisibilityCanBePrivate")
-open class FlywayService(private val dataSourceService: DataSourceConfig) : AbstractService() {
+open class FlywayService<DS : DataSource>(private val dataSourceService: DataSourceConfig<DS>) :
+	AbstractService() {
 
 	override val finalizeAfterStart = true
 
