@@ -5,10 +5,10 @@ apply {
 }
 
 val kotlinUtilsVersion: String by project
-val kotlinExVersion: String by project
+val kodeinExVersion: String by project
 
 dependencies {
-	"compile"("com.github.itbasis.kodein-ex:kodein-ex-common:$kotlinExVersion")
+	"compile"("com.github.itbasis.kodein-ex:kodein-ex-common:$kodeinExVersion")
 
 	"compile"("com.github.itbasis.kotlin-utils:kotlin-utils-common:$kotlinUtilsVersion")
 }
