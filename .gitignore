@@ -25,5 +25,6 @@ tmp.*
 !.idea/gradle.xml
 !.idea/kotlinc.xml
 !.idea/kotlinScripting.xml
+!.idea/sqldialects.xml
 
 test-apps/
