@@ -28,8 +28,8 @@ configurations.all {
         "junit"                -> useVersion("4.+")
         "io.kotlintest"        -> useVersion("+")
 //        "org.kodein.di"             -> useVersion("5.1.0")
-//        "com.github.lewik.klogging" -> useVersion("1.2.41")
-//        "com.github.lewik"          -> useTarget("com.github.lewik.klogging:${requested.name}:${requested.version}")
+        "com.github.lewik.klogging" -> useVersion("+")
+        "com.github.lewik"          -> useTarget("com.github.lewik.klogging:${requested.name}:${requested.version}")
 
 //	      "com.wix"                        -> useVersion("4.1.2")
 //	      "org.flywaydb"                 -> useVersion("5.1.1")
